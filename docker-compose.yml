@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server-php
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - C:\Users\Administrator\serverClient:/var/www/html
+    links:
+      - bd
+
+  bd:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: pg
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
